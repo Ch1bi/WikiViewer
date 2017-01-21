@@ -2,6 +2,8 @@
 
 var searchText = document.getElementById("search");
 var submit = document.getElementById("submit");
+var xRequest;
+var appendData = document.getElementById("data");
 
 //if event listener supported...
 if(submit.addEventListener){
@@ -12,16 +14,23 @@ if(submit.addEventListener){
 
 function searchWiki(){
     
-let topic = searchText.value;
-var url = "http://en.wikipedia.org/w/api.php?action=opensearch&search="+topic+ "&format=json&callback=?";
+var url = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrsearch=" + searchText.value + "&gsrlimit=10&prop=extracts&exintro&explaintext&exsentences=1&exlimit=max&origin=*";
     
+xRequest = new XMLHttpRequest();
+xRequest.onreadystatechange = function(){
+
+if(xRequest.readyState == 4 && xRequest.status == 200){
+            
+        var data = xRequest.responseText;
+        //console.log(data);
     
-// Use request as first parameter to fetch method
-var req = new Request(url, {method: 'GET', cache: 'reload', credentials:"same-origin", mode: "cors", headers: {
-      'Api-User-Agent': 'Example/1.0'
-    },});
-fetch(req).then(function(response) {
-  console.log(response);
-});
+        var json = JSON.parse(data);
+        console.log(json);
+      
+}
+}
+xRequest.open("GET", url);
+xRequest.send(null);
+    
 }
 
