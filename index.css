@@ -39,3 +39,10 @@ button{
     align-self: center;
 }
 
+.outer{
+    
+    background-color: lightgray;
+        display: flex;
+        align-items: center;
+}
+

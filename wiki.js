@@ -1,15 +1,22 @@
-//for use with the Wikipedia api
-
+var appendData = document.getElementById("data");
 var searchText = document.getElementById("search");
 var submit = document.getElementById("submit");
 var xRequest;
-var appendData = document.getElementById("data");
+var resultString = "";
 
 //if event listener supported...
 if(submit.addEventListener){
     
     //add eventlistener
     submit.addEventListener("click", searchWiki, false);   
+}
+
+function checkResults(){
+    
+    if(resultString.length > 0){
+        
+        resultString = " ";
+    }
 }
 
 function searchWiki(){
@@ -22,28 +29,31 @@ xRequest.onreadystatechange = function(){
 if(xRequest.readyState == 4 && xRequest.status == 200){
             
             var data = xRequest.responseText;
+           //console.log(data);
             var json = JSON.parse(data);
             //console.log(json);
-            var keys = Object.keys(json.query.pages);
-            //console.log(keys);
     
-            var resultString = "";
+            //check if resultString contains anything, if so delete results.
+            checkResults();
             
-            for(var i = 0; i < keys.length; i++){
-                  
-                resultString += "<a href='https://en.wikipedia.org/wiki"+json.query.pages[keys[i]].title+"'>";
-                resultString += "<div class='outer'>";
-                resultString += "<p class='title'>";
-                resultString += json.query.pages[keys[i]].title;
+              var keys = Object.keys(json.query.pages);
                 
+                keys.forEach(function(key){
+                resultString += "<div class='outer'>";
+                resultString += "<a href='https://en.wikipedia.org/wiki/"+json.query.pages[key].title +"'>";
+                resultString += "<div class='inner'>";
+                resultString += "<p class='title'>";
+                resultString += json.query.pages[key].title;
                 resultString += "</div>";
                 resultString += "</a>";
+                resultString +="</div>"
+                });
             }
-    
-    data.innerHTML = resultString;
+ 
+            appendData.innerHTML = resultString;
     
     }
-}
+
 xRequest.open("GET", url);
 xRequest.send(null);
     
