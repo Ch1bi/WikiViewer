@@ -1,6 +1,7 @@
 var appendData = document.getElementById("data");
 var searchText = document.getElementById("search");
 var submit = document.getElementById("submit");
+var random = document.getElementById("random");
 var xRequest;
 var resultString = "";
 
@@ -9,6 +10,11 @@ if(submit.addEventListener){
     
     //add eventlistener
     submit.addEventListener("click", searchWiki, false);   
+}
+
+else if(random.addEventListener){
+
+    random.addEventListener("click", getRandomArticle, false);
 }
 
 function checkResults(){
@@ -46,13 +52,23 @@ if(xRequest.readyState == 4 && xRequest.status == 200){
                 resultString += json.query.pages[key].title;
                 resultString += "</div>";
                 resultString += "</a>";
+                resultString += "<div class='inner2'>";
+                resultString += "<p class='excerpt'>"
+                resultString += json.query.pages[key].extract;
+                resultString += "</p>"
+                resultString += "</div>"
                 resultString +="</div>"
                 });
             }
- x
+ 
             appendData.innerHTML = resultString;
     
     }
+
+function getRandomArticle(){
+    
+    
+}
 
 xRequest.open("GET", url);
 xRequest.send(null);

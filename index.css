@@ -10,12 +10,13 @@ body {
     
     display: flex;
     flex-direction: column;
-    margin-top:10em;
+    margin: 10em 0 0 0;
 }
 
-.container h1{
+.container p{
     
     align-self: center;
+    font-size:10pt;
 }
 
 
@@ -23,26 +24,61 @@ textarea{
     
    
     resize: none;
-    margin-right: 20px;
-    border-color: white;
     color: black;
-    padding:5px;
     align-self: center;
     text-align: center;
+    outline-color: black;
+    border:single;
 }
 
-button{
+
+
+.buttons{
+    
+    display: flex;  
+    justify-content: center;
+}
+
+#submit{
     
     color:black;
-    padding: 10px 10px 10px 10px;
+    padding: 8px 0 0 8px;
+    margin-top:1em;
+    align-self: center;
+}
+
+
+#random{
+    
+    display:inline-block;
+    color:black;
+    padding: 8px 0 0 8px;
     margin-top:1em;
     align-self: center;
 }
 
 .outer{
     
-    background-color: lightgray;
-        display: flex;
-        align-items: center;
+    margin: 0 10em 0 10em;
+    background-color: #e7e7e7;   
+}
+
+.outer:hover{
+    
+    border-left: 5px solid #ff9d42;
+}
+
+
+
+.title{
+    
+    padding: 0.5em 0 0 1em;
+}
+
+
+.excerpt{
+    
+    font-size:9pt;
+    padding: 0 0 0.5em 1em;
 }
 
