@@ -2,7 +2,6 @@ var appendData = document.getElementById("data");
 var searchText = document.getElementById("search");
 var submit = document.getElementById("submit");
 var random = document.getElementById("random");
-var xRequest;
 var resultString = "";
 
 //if event listener supported...
@@ -12,7 +11,7 @@ if(submit.addEventListener){
     submit.addEventListener("click", searchWiki, false);   
 }
 
-else if(random.addEventListener){
+if(random.addEventListener){
 
     random.addEventListener("click", getRandomArticle, false);
 }
@@ -29,7 +28,8 @@ function searchWiki(){
     
 var url = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrsearch=" + searchText.value + "&gsrlimit=10&prop=extracts&exintro&explaintext&exsentences=1&exlimit=max&origin=*";
     
-xRequest = new XMLHttpRequest();
+    
+var xRequest = new XMLHttpRequest();
 xRequest.onreadystatechange = function(){
 
 if(xRequest.readyState == 4 && xRequest.status == 200){
@@ -65,13 +65,48 @@ if(xRequest.readyState == 4 && xRequest.status == 200){
     
     }
 
-function getRandomArticle(){
-    
-    
-}
-
 xRequest.open("GET", url);
 xRequest.send(null);
     
 }
+
+function getRandomArticle(){
+
+var randUrl = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnlimit=30&origin=*";
+    
+var randRequest = new XMLHttpRequest();
+    
+var randNum;
+var choiceArticle = "";
+    
+randRequest.onreadystatechange = function(){
+
+if(randRequest.readyState == 4 && randRequest.status == 200){
+            
+       var randData = randRequest.responseText;
+       var randJSON = JSON.parse(randData);
+       console.log(randJSON);
+        
+        var randomKeys = Object.keys(randJSON.query.random);
+        console.log(randomKeys); 
+        
+        randNum = Math.floor(Math.random() * randomKeys.length);
+        console.log(randNum);
+        
+        choiceArticle = randJSON.query.random[randNum].title;
+        console.log(choiceArticle);
+    
+        window.open("https://en.wikipedia.org/wiki/" + choiceArticle, "_blank");
+        
+    }
+
+    
+}
+
+randRequest.open("GET", randUrl);
+randRequest.send(null); 
+    
+    
+}
+
 
