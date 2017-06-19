@@ -16,27 +16,33 @@ body {
 .container p{
     
     align-self: center;
-    font-size:10pt;
+    font-size:12pt;
+}
+
+#globe{
+
+    align-self: center;
 }
 
 
-textarea{
+form{
     
-   
-    resize: none;
     color: black;
     align-self: center;
     text-align: center;
     outline-color: black;
 }
 
+#search{
 
-
-.buttons{
-    
-    display: flex;  
-    justify-content: center;
+    text-align: center;
 }
+
+
+
+
+
+
 
 #submit{
     
